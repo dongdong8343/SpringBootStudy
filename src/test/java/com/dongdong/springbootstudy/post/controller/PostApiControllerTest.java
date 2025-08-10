@@ -2,6 +2,8 @@ package com.dongdong.springbootstudy.post.controller;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -85,5 +87,23 @@ public class PostApiControllerTest {
 		assertThat(post.getTitle()).isEqualTo(expectedTitle);
 		assertThat(post.getContent()).isEqualTo(expectedContent);
 
+	}
+
+	@Test
+	public void BaseTimeEntity_등록() {
+		// given
+		LocalDateTime now = LocalDateTime.of(2025, 8, 10, 0, 0, 0);
+		postRepository.save(Post.create("title", "content", "author"));
+
+		// when
+		List<Post> posts = postRepository.findAll();
+
+		// then
+		Post post = posts.get(0);
+
+		System.out.println(">>>>>>>>>>>> createDate="+post.getCreatedAt()+", modifiedDate="+post.getUpdatedAt());
+
+		assertThat(post.getCreatedAt()).isAfter(now);
+		assertThat(post.getUpdatedAt()).isAfter(now);
 	}
 }
