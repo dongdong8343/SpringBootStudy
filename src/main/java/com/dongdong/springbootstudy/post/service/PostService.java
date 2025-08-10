@@ -7,6 +7,7 @@ import com.dongdong.springbootstudy.post.entity.Post;
 import com.dongdong.springbootstudy.post.provider.PostProvider;
 import com.dongdong.springbootstudy.post.service.dto.ReadPost;
 import com.dongdong.springbootstudy.post.service.dto.SavePost;
+import com.dongdong.springbootstudy.post.service.dto.UpdatePost;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,5 +26,14 @@ public class PostService {
 		return SavePost.toResponse(
 			postProvider.save(Post.create(request.getTitle(), request.getContent(), request.getAuthor()))
 				.getId());
+	}
+
+	@Transactional
+	public UpdatePost.Response update(Long postId, UpdatePost.Request request) {
+		Post post = postProvider.findById(postId);
+
+		post.update(request.getTitle(), request.getContent());
+
+		return UpdatePost.toResponse(postId);
 	}
 }

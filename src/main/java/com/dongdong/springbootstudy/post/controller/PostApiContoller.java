@@ -1,6 +1,7 @@
 package com.dongdong.springbootstudy.post.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dongdong.springbootstudy.post.service.PostService;
 import com.dongdong.springbootstudy.post.service.dto.ReadPost;
 import com.dongdong.springbootstudy.post.service.dto.SavePost;
+import com.dongdong.springbootstudy.post.service.dto.UpdatePost;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,5 +31,8 @@ public class PostApiContoller {
 		return postService.save(request);
 	}
 
-
+	@PatchMapping("/{postId}")
+	public UpdatePost.Response update(@PathVariable Long postId, @RequestBody UpdatePost.Request request) {
+		return postService.update(postId, request);
+	}
 }

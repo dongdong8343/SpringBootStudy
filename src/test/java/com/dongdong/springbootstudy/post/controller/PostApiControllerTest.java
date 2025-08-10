@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.dongdong.springbootstudy.post.entity.Post;
 import com.dongdong.springbootstudy.post.repository.PostRepository;
 import com.dongdong.springbootstudy.post.service.dto.SavePost;
+import com.dongdong.springbootstudy.post.service.dto.UpdatePost;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // 포트 랜덤으로 해서 여러 테스트 시 충돌 방지
 public class PostApiControllerTest {
@@ -51,5 +54,36 @@ public class PostApiControllerTest {
 		Post post = postRepository.findAll().get(0);
 		assertThat(post.getTitle()).isEqualTo(title);
 		assertThat(post.getContent()).isEqualTo(content);
+	}
+
+	@Test
+	public void Post_수정() throws Exception {
+		// given
+		Post savedPost = postRepository.save(Post.create("title", "content", "author"));
+
+		Long updateId = savedPost.getId();
+		String expectedTitle = "title2";
+		String expectedContent = "content2";
+
+		UpdatePost.Request request = new UpdatePost.Request(expectedTitle, expectedContent);
+
+		String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
+
+		HttpEntity<UpdatePost.Request> requestHttpEntity = new HttpEntity<>(request);
+
+		// when
+		ResponseEntity<UpdatePost.Response> responseEntity = restTemplate.exchange(url, HttpMethod.PATCH, requestHttpEntity,
+			UpdatePost.Response.class);
+
+		// then
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(responseEntity.getBody().getId()).isGreaterThan(0L);
+
+		List<Post> posts = postRepository.findAll();
+		Post post = posts.get(0);
+
+		assertThat(post.getTitle()).isEqualTo(expectedTitle);
+		assertThat(post.getContent()).isEqualTo(expectedContent);
+
 	}
 }
