@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dongdong.springbootstudy.post.entity.Post;
 import com.dongdong.springbootstudy.post.provider.PostProvider;
+import com.dongdong.springbootstudy.post.service.dto.ReadPost;
 import com.dongdong.springbootstudy.post.service.dto.SavePost;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PostService {
 	private final PostProvider postProvider;
+
+	@Transactional(readOnly = true)
+	public ReadPost.Response findById(Long postId) {
+		return ReadPost.from(postProvider.findById(postId));
+	}
 
 	@Transactional
 	public SavePost.Response save(SavePost.Request request) {

@@ -12,6 +12,10 @@ import lombok.RequiredArgsConstructor;
 public class PostProvider {
 	private final PostRepository postRepository;
 
+	public Post findById(Long postId) {
+		return postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
+	}
+
 	public Post save(Post post) {
 		return postRepository.save(post);
 	}
