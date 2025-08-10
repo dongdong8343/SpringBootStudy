@@ -14,7 +14,9 @@ import com.dongdong.springbootstudy.post.service.dto.SavePost;
 import com.dongdong.springbootstudy.post.service.dto.UpdatePost;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/posts")
 @RestController

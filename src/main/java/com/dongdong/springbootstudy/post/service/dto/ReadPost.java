@@ -2,7 +2,10 @@ package com.dongdong.springbootstudy.post.service.dto;
 
 import com.dongdong.springbootstudy.post.entity.Post;
 
+import lombok.Getter;
+
 public class ReadPost {
+	@Getter
 	public static class Response {
 		private Long id;
 		private String title;
