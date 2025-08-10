@@ -1,4 +1,4 @@
-package com.dongdong.springbootstudy.dto;
+package com.dongdong.springbootstudy.web.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
