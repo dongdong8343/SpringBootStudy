@@ -1,5 +1,7 @@
 package com.dongdong.springbootstudy.post.provider;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.dongdong.springbootstudy.post.entity.Post;
@@ -14,6 +16,10 @@ public class PostProvider {
 
 	public Post findById(Long postId) {
 		return postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
+	}
+
+	public List<Post> findAllOrderByIdDesc() {
+		return postRepository.findAllByOrderByIdDesc();
 	}
 
 	public Post save(Post post) {

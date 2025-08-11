@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dongdong.springbootstudy.post.entity.Post;
 import com.dongdong.springbootstudy.post.provider.PostProvider;
+import com.dongdong.springbootstudy.post.service.dto.PostList;
 import com.dongdong.springbootstudy.post.service.dto.ReadPost;
 import com.dongdong.springbootstudy.post.service.dto.SavePost;
 import com.dongdong.springbootstudy.post.service.dto.UpdatePost;
@@ -19,6 +20,11 @@ public class PostService {
 	@Transactional(readOnly = true)
 	public ReadPost.Response findById(Long postId) {
 		return ReadPost.from(postProvider.findById(postId));
+	}
+
+	@Transactional(readOnly = true)
+	public PostList.Response findAll() {
+		return PostList.toResponse(postProvider.findAllOrderByIdDesc());
 	}
 
 	@Transactional
