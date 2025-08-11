@@ -4,6 +4,7 @@ package com.dongdong.springbootstudy.web;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +18,7 @@ public class HelloControllerTest {
 	@Autowired
 	private MockMvc mvc; // api 테스트 시 사용
 
+	@WithMockUser(roles = "USER")
 	@Test
 	public void hello_리턴() throws Exception {
 		String hello = "hello";
@@ -40,6 +42,7 @@ public class HelloControllerTest {
 		assertThat(dto.getAmount()).isEqualTo(amount);
 	}
 
+	@WithMockUser(roles = "USER")
 	@Test
 	public void helloDto_리턴() throws Exception {
 		String name = "hello";

@@ -15,11 +15,12 @@ public class PostProvider {
 	private final PostRepository postRepository;
 
 	public Post findById(Long postId) {
+		System.out.println("provider === " + postId);
 		return postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
 	}
 
 	public List<Post> findAllOrderByIdDesc() {
-		return postRepository.findAllByOrderByIdDesc();
+		return postRepository.findAllByDeletedAtIsNullOrderByIdDesc();
 	}
 
 	public Post save(Post post) {

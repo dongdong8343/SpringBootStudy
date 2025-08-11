@@ -9,5 +9,5 @@ import com.dongdong.springbootstudy.post.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-	List<Post> findAllByOrderByIdDesc();
+	List<Post> findAllByDeletedAtIsNullOrderByIdDesc();
 }

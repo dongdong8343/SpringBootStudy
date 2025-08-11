@@ -1,5 +1,6 @@
 package com.dongdong.springbootstudy.post.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,5 +37,12 @@ public class PostApiContoller {
 	@PatchMapping("/{postId}")
 	public UpdatePost.Response update(@PathVariable Long postId, @RequestBody UpdatePost.Request request) {
 		return postService.update(postId, request);
+	}
+
+	@DeleteMapping("/{postId}")
+	public Long delete(@PathVariable Long postId) {
+		postService.delete(postId);
+
+		return postId;
 	}
 }

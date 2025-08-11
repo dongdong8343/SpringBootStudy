@@ -42,4 +42,11 @@ public class PostService {
 
 		return UpdatePost.toResponse(postId);
 	}
+
+	@Transactional
+	public void delete(Long postId) {
+		Post post = postProvider.findById(postId);
+
+		post.delete();
+	}
 }
