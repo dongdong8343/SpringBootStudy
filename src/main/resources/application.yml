@@ -3,6 +3,8 @@ spring:
     include: oauth
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
   h2:
     console:
       enabled: true
